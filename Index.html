@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Roboto', sans-serif; background-color: #f4f6f8; margin: 0; padding: 0; }
+      .hidden { display: none !important; }
+
+      /* Login Screen */
+      #login-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+      .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; }
+      
+      input, select, button { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+      button { background-color: #2196F3; color: white; border: none; cursor: pointer; font-weight: 500; }
+      button:hover { background-color: #1976D2; }
+
+      /* Dashboard */
+      #dashboard-container { display: none; display: flex; height: 100vh; }
+      #sidebar { width: 250px; background-color: #263238; color: white; display: flex; flex-direction: column; }
+      #sidebar h2 { text-align: center; padding: 20px 0; margin: 0; background: #1c252a; }
+      .nav-btn { padding: 15px 20px; cursor: pointer; border-bottom: 1px solid #37474f; transition: 0.3s; }
+      .nav-btn:hover, .nav-btn.active { background-color: #37474f; }
+      #user-info { margin-top: auto; padding: 20px; font-size: 0.9em; background: #1c252a; }
+
+      #content { flex: 1; padding: 20px; overflow-y: auto; }
+      .section { display: none; }
+      .section.active { display: block; animation: fadeIn 0.5s; }
+      h3 { border-bottom: 2px solid #2196F3; padding-bottom: 10px; color: #333; }
+      
+      table { width: 100%; border-collapse: collapse; background: white; margin-top: 15px; font-size: 0.9em; }
+      th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+      th { background-color: #f5f5f5; }
+
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+  </head>
+  <body>
+
+    <div id="login-container">
+      <div class="card">
+        <h2 style="text-align:center;">User Login</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="handleLogin()">Login</button>
+        <p id="login-error" style="color:red; font-size:12px; text-align:center;"></p>
+      </div>
+    </div>
+
+    <div id="dashboard-container" class="hidden">
+      <div id="sidebar">
+        <h2>Help Desk</h2>
+        <div class="nav-btn active" onclick="showSection('raised-ticket-section')">Raised Help Ticket</div>
+        <div class="nav-btn" onclick="showSection('followup-section')">Ticket Follow-Up</div>
+        <div class="nav-btn" onclick="showSection('problem-section')">Problem Solving</div>
+        <div class="nav-btn hidden" id="btn-view-data" onclick="loadDataView()">View All Data</div>
+        
+        <div id="user-info">
+          User: <span id="display-username">--</span><br>
+          Role: <span id="display-role">--</span>
+        </div>
+      </div>
+
+      <div id="content">
+        
+        <div id="raised-ticket-section" class="section active">
+          <h3>Create New Ticket</h3>
+          <div class="card" style="width: 100%; max-width: 500px;">
+            <form id="form-create-ticket">
+              <label>Raised By:</label>
+              <select id="input-raised-by"><option>Loading...</option></select>
+              <label>PC Accountable:</label>
+              <select id="input-pc"><option>Loading...</option></select>
+              <label>Issue:</label>
+              <input type="text" id="input-issue" placeholder="Describe issue">
+              <label>Problem Solver:</label>
+              <input type="text" id="input-solver" placeholder="Solver Name">
+              <button type="button" onclick="submitTicket()">Submit Ticket</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="followup-section" class="section">
+          <h3>Ticket Follow-Up (S1)</h3>
+          <div class="card" style="width: 100%; max-width: 500px;">
+            <form id="form-followup">
+              <label>Select Ticket UID:</label>
+              <select id="follow-uid"><option>Select UID</option></select>
+              
+              <label>Planned Time:</label>
+              <input type="text" id="follow-planned" placeholder="e.g. 2 Hours">
+              
+              <label>Actual Time:</label>
+              <input type="text" id="follow-actual" placeholder="e.g. 2.5 Hours">
+              
+              <label>Status:</label>
+              <select id="follow-status">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+              
+              <label>Time Delay:</label>
+              <input type="text" id="follow-delay" placeholder="e.g. 30 Mins">
+              
+              <button type="button" onclick="submitFollowUp()">Update Follow-Up</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="problem-section" class="section">
+          <h3>Help Ticket Problem Solving</h3>
+          <div class="card" style="width: 100%; max-width: 500px;">
+            <form id="form-problem">
+              <label>Select Ticket UID:</label>
+              <select id="problem-uid"><option>Select UID</option></select>
+              
+              <label>Planned Time:</label>
+              <input type="text" id="problem-planned" placeholder="e.g. 4 Hours">
+              
+              <label>Actual Time:</label>
+              <input type="text" id="problem-actual" placeholder="e.g. 5 Hours">
+              
+              <label>Status:</label>
+              <select id="problem-status">
+                <option value="Pending">Pending</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+
+              <label>Desired Date:</label>
+              <input type="date" id="problem-desired-date">
+              
+              <button type="button" onclick="submitProblemSolving()">Update Problem Solving</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="data-view-section" class="section">
+          <h3>All Data Records</h3>
+          <div id="data-table-container">Loading...</div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      let currentUser = {};
+
+      function handleLogin() {
+        const email = document.getElementById('login-email').value;
+        const pass = document.getElementById('login-password').value;
+        
+        google.script.run.withSuccessHandler(function(res) {
+          if (res.success) {
+            currentUser = res;
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('dashboard-container').classList.remove('hidden');
+            document.getElementById('display-username').innerText = res.username;
+            document.getElementById('display-role').innerText = res.role;
+
+            if(res.role === 'Admin') {
+              document.getElementById('btn-view-data').classList.remove('hidden');
+            }
+
+            loadDropdowns();
+          } else {
+            document.getElementById('login-error').innerText = "Invalid Credentials";
+          }
+        }).doLogin(email, pass);
+      }
+
+      function showSection(id) {
+        if(id === 'data-view-section' && currentUser.role !== 'Admin') return;
+        
+        // Hide all
+        document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+        
+        // Show active
+        document.getElementById(id).classList.add('active');
+
+        // FIXED: Load data when section opens, not when dropdown is clicked
+        if(id === 'followup-section') loadUIDs('follow-uid');
+        if(id === 'problem-section') loadUIDs('problem-uid');
+      }
+
+      function loadDropdowns() {
+        google.script.run.withSuccessHandler(function(data) {
+          let rHtml = '<option value="">Select...</option>';
+          data.raisedBy.forEach(n => rHtml += `<option value="${n}">${n}</option>`);
+          document.getElementById('input-raised-by').innerHTML = rHtml;
+
+          let pHtml = '<option value="">Select...</option>';
+          data.pc.forEach(n => pHtml += `<option value="${n}">${n}</option>`);
+          document.getElementById('input-pc').innerHTML = pHtml;
+        }).getDropdownData();
+      }
+
+      function loadUIDs(elemId) {
+        const sel = document.getElementById(elemId);
+        // Save current selection if any (optional safety)
+        const currentVal = sel.value;
+        sel.innerHTML = '<option>Loading...</option>'; // User feedback
+
+        google.script.run.withSuccessHandler(function(uids) {
+          let html = '<option value="">Select UID</option>';
+          uids.forEach(uid => html += `<option value="${uid}">${uid}</option>`);
+          sel.innerHTML = html;
+          // Restore if valid
+          if(currentVal && uids.includes(currentVal)) sel.value = currentVal; 
+        }).getOpenTicketUIDs();
+      }
+
+      function submitTicket() {
+        const data = {
+          raisedBy: document.getElementById('input-raised-by').value,
+          pcAccountable: document.getElementById('input-pc').value,
+          issue: document.getElementById('input-issue').value,
+          problemSolver: document.getElementById('input-solver').value
+        };
+        if(!data.raisedBy) { alert("Please fill details"); return; }
+        
+        google.script.run.withSuccessHandler(function(msg){
+          alert(msg);
+          document.getElementById('form-create-ticket').reset();
+          // FIXED: Refresh lists silently in background
+          loadUIDs('follow-uid');
+          loadUIDs('problem-uid');
+        }).submitTicket(data);
+      }
+
+      function submitFollowUp() {
+        const data = {
+          ticketUid: document.getElementById('follow-uid').value,
+          planned: document.getElementById('follow-planned').value,
+          actual: document.getElementById('follow-actual').value,
+          status: document.getElementById('follow-status').value,
+          delay: document.getElementById('follow-delay').value
+        };
+        if(!data.ticketUid || data.ticketUid === "Select UID") { alert("Select UID"); return; }
+        
+        google.script.run.withSuccessHandler(function(msg){
+          alert(msg);
+          document.getElementById('form-followup').reset();
+        }).submitFollowUp(data);
+      }
+
+      function submitProblemSolving() {
+        const data = {
+          ticketUid: document.getElementById('problem-uid').value,
+          planned: document.getElementById('problem-planned').value,
+          actual: document.getElementById('problem-actual').value,
+          status: document.getElementById('problem-status').value,
+          desiredDate: document.getElementById('problem-desired-date').value
+        };
+        if(!data.ticketUid || data.ticketUid === "Select UID") { alert("Select UID"); return; }
+        
+        google.script.run.withSuccessHandler(function(msg){
+          alert(msg);
+          document.getElementById('form-problem').reset();
+        }).submitProblemSolving(data);
+      }
+
+      function loadDataView() {
+        if(currentUser.role !== 'Admin') return;
+        showSection('data-view-section');
+        google.script.run.withSuccessHandler(function(data) {
+          let html = '<table><thead><tr>';
+          ['Timestamp','UID','Raised By','Issue','F-Status','P-Status'].forEach(h => html += `<th>${h}</th>`);
+          html += '</tr></thead><tbody>';
+          
+          for(let i=4; i<data.length; i++) {
+             html += `<tr>
+                <td>${data[i][0]}</td>
+                <td>${data[i][1]}</td>
+                <td>${data[i][2]}</td>
+                <td>${data[i][4]}</td>
+                <td>${data[i][8]}</td>
+                <td>${data[i][12]}</td>
+             </tr>`;
+          }
+          html += '</tbody></table>';
+          document.getElementById('data-table-container').innerHTML = html;
+        }).getDashboardData();
+      }
+    </script>
+  </body>
+</html>
